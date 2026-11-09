@@ -1,0 +1,21 @@
+{
+  "name": "payment-providers",
+  "version": "1.0.0",
+  "description": "A unified TypeScript payments library for Stripe, PayPal, and Paddle. One API for checkouts, subscriptions, refunds, and normalized webhooks, with new providers easy to add.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mon9asser/payment-providers.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mon9asser/payment-providers/issues"
+  },
+  "homepage": "https://github.com/mon9asser/payment-providers#readme"
+}
