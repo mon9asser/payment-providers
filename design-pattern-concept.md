@@ -14,41 +14,56 @@ payment.product.create(...)
 flowchart LR
   API([API])
 
-  subgraph catalog [Catalog]
-    direction TB
-    c1[Products] ~~~ c2[Prices] ~~~ c3[Discounts] ~~~ c4[Discount groups]
-  end
-  subgraph customers [Customers]
-    direction TB
-    u1[Customers] ~~~ u2[Addresses] ~~~ u3[Businesses] ~~~ u4[Payment methods] ~~~ u5[Customer portals]
-  end
-  subgraph billing [Billing]
-    direction TB
-    b1[Transactions] ~~~ b2[Subscriptions] ~~~ b3[Subscription history] ~~~ b4[Adjustments] ~~~ b5[Pricing preview]
-  end
-  subgraph events [Events]
-    direction TB
-    e1[Events] ~~~ e2[Event types] ~~~ e3[Notifications] ~~~ e4[Notification settings] ~~~ e5[Notification logs]
-  end
-  subgraph account [Account]
-    direction TB
-    a1[Account] ~~~ a2[Settings] ~~~ a3[Checkout domains] ~~~ a4[Verifications] ~~~ a5[API root]
-  end
-  subgraph platform [Platform]
-    direction TB
-    p1[Client-side tokens] ~~~ p2[Countries] ~~~ p3[Currencies] ~~~ p4[IP addresses]
-  end
-  subgraph webhook [Webhook simulator]
-    direction TB
-    w1[Simulations] ~~~ w2[Simulation types] ~~~ w3[Simulation runs] ~~~ w4[Simulation run events]
-  end
-  subgraph reporting [Reporting]
-    direction TB
-    r1[Reports] ~~~ r2[Metrics]
-  end
+  API --> catalog[Catalog]
+  API --> customers[Customers]
+  API --> billing[Billing]
+  API --> events[Events]
+  API --> account[Account]
+  API --> platform[Platform]
+  API --> webhook[Webhook simulator]
+  API --> reporting[Reporting]
 
-  API --> catalog & customers & billing & events
-  API --> account & platform & webhook & reporting
+  catalog --> c1[Products]
+  catalog --> c2[Prices]
+  catalog --> c3[Discounts]
+  catalog --> c4[Discount groups]
+
+  customers --> u1[Customers]
+  customers --> u2[Addresses]
+  customers --> u3[Businesses]
+  customers --> u4[Payment methods]
+  customers --> u5[Customer portals]
+
+  billing --> b1[Transactions]
+  billing --> b2[Subscriptions]
+  billing --> b3[Subscription history]
+  billing --> b4[Adjustments]
+  billing --> b5[Pricing preview]
+
+  events --> e1[Events]
+  events --> e2[Event types]
+  events --> e3[Notifications]
+  events --> e4[Notification settings]
+  events --> e5[Notification logs]
+
+  account --> a1[Account]
+  account --> a2[Settings]
+  account --> a3[Checkout domains]
+  account --> a4[Verifications]
+  account --> a5[API root]
+
+  platform --> p1[Client-side tokens]
+  platform --> p2[Countries]
+  platform --> p3[Currencies]
+  platform --> p4[IP addresses]
+
+  webhook --> w1[Simulations]
+  webhook --> w2[Simulation types]
+  webhook --> w3[Simulation runs]
+  webhook --> w4[Simulation run events]
+
+  reporting --> r1[Reports]
+  reporting --> r2[Metrics]
 ```
 
 #### Stripe Diagram
