@@ -17,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/mon9asser/payment-providers/issues"
   },
-  "homepage": "https://github.com/mon9asser/payment-providers#readme"
+  "homepage": "https://github.com/mon9asser/payment-providers#readme",
+  "dependencies": {
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
 }
