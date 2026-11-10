@@ -180,5 +180,71 @@ flowchart LR
 ```
 #### PayPal Diagram
 
+```mermaid
+flowchart LR
+  root([PayPal REST API])
 
+  root --> auth["Authentication"]
+  root --> orders["Orders v2"]
+  root --> payments["Payments v2"]
+  root --> subs["Subscriptions v1"]
+  root --> catalog["Catalog Products v1"]
+  root --> invoicing["Invoicing v2"]
+  root --> payouts["Payouts v1"]
+  root --> vault["Payment Method Tokens v3"]
+  root --> disputes["Disputes v1"]
+  root --> reporting["Transaction Search v1"]
+  root --> webhooks["Webhooks Management v1"]
+
+  auth --> au1["OAuth token"]
+
+  orders --> o1["Create order"]
+  orders --> o2["Show order details"]
+  orders --> o3["Update order"]
+  orders --> o4["Authorize payment for order"]
+  orders --> o5["Capture payment for order"]
+
+  payments --> p1["Show authorization details"]
+  payments --> p2["Capture authorized payment"]
+  payments --> p3["Reauthorize payment"]
+  payments --> p4["Void authorization"]
+  payments --> p5["Show captured payment details"]
+  payments --> p6["Refund captured payment"]
+  payments --> p7["Show refund details"]
+
+  subs --> s1["Plans"]
+  subs --> s2["Subscriptions"]
+  subs --> s3["Subscription transactions"]
+
+  catalog --> c1["Create product"]
+  catalog --> c2["List products"]
+  catalog --> c3["Show product details"]
+  catalog --> c4["Update product"]
+
+  invoicing --> i1["Invoices"]
+  invoicing --> i2["Invoice payments"]
+  invoicing --> i3["Invoice refunds"]
+  invoicing --> i4["Invoice templates"]
+
+  payouts --> po1["Create batch payout"]
+  payouts --> po2["Show payout batch details"]
+  payouts --> po3["Show payout item details"]
+  payouts --> po4["Cancel unclaimed payout item"]
+
+  vault --> v1["Setup tokens"]
+  vault --> v2["Payment tokens"]
+
+  disputes --> d1["List disputes"]
+  disputes --> d2["Show dispute details"]
+  disputes --> d3["Provide evidence"]
+  disputes --> d4["Accept claim"]
+  disputes --> d5["Appeal dispute"]
+
+  reporting --> r1["List transactions"]
+  reporting --> r2["List balances"]
+
+  webhooks --> w1["Webhooks"]
+  webhooks --> w2["Event notifications"]
+  webhooks --> w3["Verify webhook signature"]
+```
 
