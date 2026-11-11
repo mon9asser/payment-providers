@@ -1,6 +1,10 @@
 
 # Design Pattern
 
+This project uses two main design patterns: Adapter Pattern and Factory Pattern.
+
+This architecture makes the payment integration modular, reusable, and extensible. That allows new payment providers to be added without changing the application's core business logic.
+
 ## Architecture diagram (Class Diagram)
 
 ```mermaid
