@@ -16,5 +16,10 @@ class PaymentProvider {
 }
 
 
-const payment = PaymentProvider.init('paddle', {api: '..'});
+try {
+    const payment = PaymentProvider.init('paddle', {api: '..'});
 payment.product.create()
+} catch (error:any) {
+    console.log(error.message);
+    
+}
