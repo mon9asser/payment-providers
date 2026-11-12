@@ -1,4 +1,8 @@
-import CustomerInterface from "./../../core/customer";
+import {
+    CustomerCreate,
+    CustomerDelete,
+    CustomerCreditBalance
+} from "./../../core/customer";
 
 type status = "active" | "archived";
 
@@ -19,7 +23,7 @@ interface updateCustomerData {
 
 
 
-export default class PaddleCustomer implements CustomerInterface {
+export default class PaddleCustomer implements  CustomerCreate {
     
     async create(objData: AddCustomerData) {
         console.log(objData);

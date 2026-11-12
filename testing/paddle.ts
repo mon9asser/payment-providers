@@ -10,8 +10,9 @@ const provider = PaymentProvider.init("paddle", {
 
 (async function(){
 
-    const {create: insertCustomer} = provider.customer;
-
-
-
+    const create = await provider.customer.create({
+        email: "example@gmail.com",
+        name: "Example Name"
+    });  
+    
 })();
