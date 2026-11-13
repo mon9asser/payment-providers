@@ -2,11 +2,12 @@
 
 // Basic Provider Interface
 import Providers from './../../providers';
+import config from './../../config.json';
 
 // Interfaces
 import ProductInterface from "./../../core/product";
-import CustomerInterface from "./../../core/customer";
 
+ 
 
 // Modules
 import Product from './product';
@@ -19,10 +20,16 @@ interface Config {
     environment?: string;
 }
 
+// ================ Types
+
+
+
+// ================ Paddle Class 
+
 export default class Paddle implements Providers {
     
     public product: ProductInterface = new Product();
-    public customer: CustomerInterface = new Customer();
+    public customer = new Customer();
 
     constructor(config: Config) {
         

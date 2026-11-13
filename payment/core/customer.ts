@@ -1,27 +1,34 @@
  
 interface CustomerRetrieve {
-    all?(): [];
+    all(options: {}): Promise<[]>;
 }
+
 interface CustomerCreate {
-    create?(objData: {}): object;
+    create(objData: {}): Promise<object>;
 }
+
 interface CustomerRetrieveById {
-    findById?(customer_id:string): object;
+    findById(customer_id:string): Promise<object>;
 }
+
 interface CustomerUpdate {
-    update?(customer_id:string, objData: {}): object; 
+    update(customer_id:string, objData: {}): Promise<object>;
 }
+
 interface CustomerSearch {
-    search?(objData: {}): {};
+    search(objData: {}): Promise<object>;
 }
+
 interface CustomerDelete {
-    delete?(customer_id:string): {};
+    delete(customer_id:string): Promise<object>;
 }
+
 interface CustomerCreditBalance {
-    creditBalance?(customer_id:string): {};
+    creditBalance(customer_id:string): Promise<object>;
 }
+
 interface CustomerGenerateAuthToken {
-    generateAuthToken?(customer_id:string): {};
+    generateAuthToken(customer_id:string): Promise<object>;
 }
 
 export {

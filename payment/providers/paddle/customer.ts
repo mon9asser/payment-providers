@@ -1,7 +1,10 @@
 import {
     CustomerCreate,
-    CustomerDelete,
-    CustomerCreditBalance
+    CustomerRetrieve,
+    CustomerRetrieveById,
+    CustomerUpdate,
+    CustomerCreditBalance,
+    CustomerGenerateAuthToken
 } from "./../../core/customer";
 
 type status = "active" | "archived";
@@ -21,14 +24,55 @@ interface updateCustomerData {
     locale?:string;
 } 
 
-
-
-export default class PaddleCustomer implements  CustomerCreate {
-    
-    async create(objData: AddCustomerData) {
-        console.log(objData);
-    }
-
+export interface RetrieveCustomersParams {
+    id?: string[];
+    after?: string;
+    per_page?: number;
+    email?: string[];
+    order_by?: 'id[ASC]' | 'id[DESC]';
+    status?: ('active' | 'archived')[];
+    search?: string;
 }
 
+
+export default class PaddleCustomer
+    implements
+        CustomerRetrieve,
+        CustomerRetrieveById,
+        CustomerCreate,
+        CustomerUpdate,
+        CustomerCreditBalance,
+        CustomerGenerateAuthToken
+{
+
+
+    async all(options: RetrieveCustomersParams = {}): Promise<[]> {
+        
+        let params = {};
+
+
+
+        return [];
+    }
+
+    async findById(customer_id:string): Promise<object> {
+        return {}
+    }
+
+    async create(objData: AddCustomerData): Promise<object> {
+        return {};
+    }
+
+    async update(customer_id:string, objData: {}): Promise<object> {
+        return {};
+    }
+
+    async creditBalance(customer_id:string): Promise<object> {
+        return {};
+    }
+
+    async generateAuthToken(customer_id:string): Promise<object> {
+        return {};
+    }
+}
 
