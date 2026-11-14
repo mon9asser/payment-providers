@@ -1,51 +1,23 @@
+import Adapter from "../../helper/adapter";
+import PaddleCustomer from "./customer";
 
-
-// Basic Provider Interface
-import Providers from './../../providers';
-import config from './../../config.json';
-
-// Interfaces
-import ProductInterface from "./../../core/product";
 
  
 
-// Modules
-import Product from './product';
-import Customer from './customer';
-
-interface Config {
-    apiKey?: string;
-    clientToken?: string;
-    webHookSecret?: string;
-    environment?: string;
-}
-
-// ================ Types
 
 
-
-// ================ Paddle Class 
-
-export default class Paddle implements Providers {
+export default class Paddle {
     
-    public product: ProductInterface = new Product();
-    public customer = new Customer();
+    private helper: Adapter; 
 
-    constructor(config: Config) {
-        
-        let errors:any = [];
-        let required:(keyof Config)[] = ["apiKey", "clientToken", "webHookSecret", "environment"];
-        
-        required.forEach(( key) => {
-            if( ! config[key] ) {
-                errors.push(key)
-            }
-        });
+    public customer: PaddleCustomer;
 
-        if( errors.length) {
-            throw new Error(`Paddle config missing: ${errors.join(", ")}`);
-        }
+    constructor( Resolver: Adapter ) { 
         
+        this.helper = Resolver; 
+        
+        this.customer = new PaddleCustomer(this.helper);
+
     }
 
 

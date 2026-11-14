@@ -1,5 +1,8 @@
 {
     "api": {
-        "paddle": "https://api.paddle.com"
+        "paddle": {
+            "sandbox": "https://sandbox-api.paddle.com",
+            "live": "https://api.paddle.com"
+        }
     }
 }
