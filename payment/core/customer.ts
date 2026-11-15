@@ -33,6 +33,25 @@ interface CustomerGenerateAuthToken {
     generateAuthToken(customer_id:string): Promise<ResponseType>;
 }
 
+
+interface CustomerAddress {
+    addresses(customer_id:string, queryParam:{}): Promise<ResponseType>;
+}
+
+interface CustomerCreateAddress {
+    createAddress(customer_id:string, body: {}): Promise<ResponseType>;
+}
+
+interface CustomerFindAddressById {
+    findAddressById(customer_id:string, address_id:string): Promise<ResponseType>;
+}
+
+interface CustomerUpdateAddress {
+    updateAddress(customer_id:string, address_id:string, body: {}): Promise<ResponseType>;
+}
+
+
+
 export {
     CustomerRetrieve,
     CustomerCreate,
@@ -42,4 +61,9 @@ export {
     CustomerDelete,
     CustomerCreditBalance,
     CustomerGenerateAuthToken,
+
+    CustomerAddress,
+    CustomerCreateAddress,
+    CustomerFindAddressById,
+    CustomerUpdateAddress
 }

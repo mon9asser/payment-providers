@@ -27,7 +27,7 @@ dotenv.config();
         }
     });
 
-     const all = await provider.account.list()
+     const all = await provider.customers.findAddressById("ctm_01m7fwjk63t59b6ate5wfdvd1a", "add_01m7g7he7ng8wzjmwc07sw2858")
     /*const create = await provider.customers.create({
         email: "tareq@gmail.com",
         name: "Ahmed Tarek",
