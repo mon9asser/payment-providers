@@ -8,9 +8,22 @@ interface PaymentProviderConfig {
 }
 
 
-type ajaxCacheOption = "default" | "no-store" | "reload" | "no-cache" | "force-cache" | "only-if-cached";
+interface ResponseType<T = unknown> {
+    isError: boolean;
+    message: string;
+    data:  T | null;
+}
 
+type RequestCache =
+    | "default"
+    | "force-cache"
+    | "no-cache"
+    | "no-store"
+    | "only-if-cached"
+    | "reload";
+ 
 export {
-    PaymentProviderConfig,
-    ajaxCacheOption
+    PaymentProviderConfig, 
+    ResponseType,
+    RequestCache
 };
