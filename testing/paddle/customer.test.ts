@@ -75,4 +75,83 @@ describe("PaddleCustomer", () => {
         request.mockResolvedValue({ data: { id: "ctm_123" } });
         await expect(customers.findById("ctm_123")).resolves.toEqual({ data: { id: "ctm_123" } });
     });
+
+        describe("addresses()", () => {
+        it("calls GET /customers/{id}/addresses with no query string by default", async () => {
+            await customers.addresses("ctm_123");
+            expect(request).toHaveBeenCalledWith("/customers/ctm_123/addresses");
+        });
+
+        it("serializes query params into the query string", async () => {
+            await customers.addresses("ctm_123", {
+                per_page: 5,
+                status: ["active", "archived"],
+                order_by: "id[DESC]",
+            });
+            expect(request).toHaveBeenCalledWith(
+                "/customers/ctm_123/addresses?per_page=5&status=active,archived&order_by=id[DESC]"
+            );
+        });
+
+        it("supports id, after and search params", async () => {
+            await customers.addresses("ctm_123", {
+                id: ["add_1", "add_2"],
+                after: "add_2",
+                search: "home",
+            });
+            expect(request).toHaveBeenCalledWith(
+                "/customers/ctm_123/addresses?id=add_1,add_2&after=add_2&search=home"
+            );
+        });
+    });
+
+    describe("createAddress()", () => {
+        it("sends POST /customers/{id}/addresses with the payload", async () => {
+            const body = {
+                country_code: "SA",
+                city: "Jeddah",
+                first_line: "King Road",
+                postal_code: "21589",
+                custom_data: { type: "billing" },
+            };
+            await customers.createAddress("ctm_123", body);
+            expect(request).toHaveBeenCalledWith("/customers/ctm_123/addresses", "POST", body);
+        });
+
+        it("accepts only the required country_code", async () => {
+            await customers.createAddress("ctm_123", { country_code: "US" });
+            expect(request).toHaveBeenCalledWith("/customers/ctm_123/addresses", "POST", {
+                country_code: "US",
+            });
+        });
+    });
+
+    describe("findAddressById()", () => {
+        it("calls GET /customers/{id}/addresses/{address_id}", async () => {
+            await customers.findAddressById("ctm_123", "add_456");
+            expect(request).toHaveBeenCalledWith("/customers/ctm_123/addresses/add_456");
+        });
+    });
+
+    describe("updateAddress()", () => {
+        it("sends PATCH /customers/{id}/addresses/{address_id} with the payload", async () => {
+            const body = { city: "Riyadh", status: "archived" as const };
+            await customers.updateAddress("ctm_123", "add_456", body);
+            expect(request).toHaveBeenCalledWith(
+                "/customers/ctm_123/addresses/add_456",
+                "PATCH",
+                body
+            );
+        });
+
+        it("allows nulling out optional fields", async () => {
+            const body = { second_line: null, description: null };
+            await customers.updateAddress("ctm_123", "add_456", body);
+            expect(request).toHaveBeenCalledWith(
+                "/customers/ctm_123/addresses/add_456",
+                "PATCH",
+                body
+            );
+        });
+    });
 });
