@@ -299,4 +299,45 @@ describe("PaddleCustomer", () => {
             await expect(customers.deletePaymentMethodById("ctm_123", "paymtd_456")).rejects.toThrow("boom");
         });
     });
+
+        describe("portalSession()", () => {
+        it("sends POST /customers/{id}/portal-sessions with an empty body by default", async () => {
+            await customers.portalSession("ctm_123");
+            expect(request).toHaveBeenCalledWith(
+                "/customers/ctm_123/portal-sessions",
+                "POST",
+                {}
+            );
+        });
+
+        it("sends an empty body when subscription_ids is an empty array", async () => {
+            await customers.portalSession("ctm_123", []);
+            expect(request).toHaveBeenCalledWith(
+                "/customers/ctm_123/portal-sessions",
+                "POST",
+                {}
+            );
+        });
+
+        it("includes subscription_ids in the body when provided", async () => {
+            await customers.portalSession("ctm_123", ["sub_1", "sub_2"]);
+            expect(request).toHaveBeenCalledWith(
+                "/customers/ctm_123/portal-sessions",
+                "POST",
+                { subscription_ids: ["sub_1", "sub_2"] }
+            );
+        });
+
+        it("returns whatever the adapter returns", async () => {
+            request.mockResolvedValue({ data: { id: "cpls_123" } });
+            await expect(customers.portalSession("ctm_123")).resolves.toEqual({
+                data: { id: "cpls_123" },
+            });
+        });
+
+        it("propagates adapter errors", async () => {
+            request.mockRejectedValue(new Error("boom"));
+            await expect(customers.portalSession("ctm_123")).rejects.toThrow("boom");
+        });
+    });
 });
