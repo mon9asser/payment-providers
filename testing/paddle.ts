@@ -25,9 +25,9 @@ dotenv.config();
             secretKey,
             publicKey
         }
-    });
+    }); 
 
-     const all = await provider.customers.findBusinessById("ctm_01m7fwjk63t59b6ate5wfdvd1a", "biz_01m7hkbhfwkn3fn4v0qz3e2xc7");
+    const all = await provider.customers.findPaymentMethodById("ctm_01m7fwjk63t59b6ate5wfdvd1a", "paymtd_01aaaaaaaaaaaaaaaaaaaaaaaa");
     /*
     biz_01m7hkbhfwkn3fn4v0qz3e2xc7
     findAddressById("ctm_01m7fwjk63t59b6ate5wfdvd1a", "add_01m7g7he7ng8wzjmwc07sw2858")

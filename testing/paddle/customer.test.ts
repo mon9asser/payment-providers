@@ -244,4 +244,59 @@ describe("PaddleCustomer", () => {
             );
         });
     });
+
+
+        describe("paymentMethods()", () => {
+        it("calls GET /customers/{id}/payment-methods with no query string by default", async () => {
+            await customers.paymentMethods("ctm_123");
+            expect(request).toHaveBeenCalledWith("/customers/ctm_123/payment-methods");
+        });
+
+        it("serializes query params into the query string", async () => {
+            await customers.paymentMethods("ctm_123", {
+                per_page: 5,
+                order_by: "id[DESC]",
+                supports_checkout: true,
+            });
+            expect(request).toHaveBeenCalledWith(
+                "/customers/ctm_123/payment-methods?per_page=5&order_by=id[DESC]&supports_checkout=true"
+            );
+        });
+
+        it("joins array params with commas", async () => {
+            await customers.paymentMethods("ctm_123", {
+                address_id: ["add_1", "add_2"],
+                after: "paymtd_2",
+            });
+            expect(request).toHaveBeenCalledWith(
+                "/customers/ctm_123/payment-methods?address_id=add_1,add_2&after=paymtd_2"
+            );
+        });
+    });
+
+    describe("findPaymentMethodById()", () => {
+        it("calls GET /customers/{id}/payment-methods/{payment_method_id}", async () => {
+            await customers.findPaymentMethodById("ctm_123", "paymtd_456");
+            expect(request).toHaveBeenCalledWith("/customers/ctm_123/payment-methods/paymtd_456");
+        });
+    });
+
+    describe("deletePaymentMethodById()", () => {
+        it("sends DELETE /customers/{id}/payment-methods/{payment_method_id}", async () => {
+            await customers.deletePaymentMethodById("ctm_123", "paymtd_456");
+            expect(request).toHaveBeenCalledWith(
+                "/customers/ctm_123/payment-methods/paymtd_456",
+                "DELETE"
+            );
+        });
+    });
+
+    describe("payment method error handling", () => {
+        it("propagates adapter errors", async () => {
+            request.mockRejectedValue(new Error("boom"));
+            await expect(customers.paymentMethods("ctm_123")).rejects.toThrow("boom");
+            await expect(customers.findPaymentMethodById("ctm_123", "paymtd_456")).rejects.toThrow("boom");
+            await expect(customers.deletePaymentMethodById("ctm_123", "paymtd_456")).rejects.toThrow("boom");
+        });
+    });
 });
