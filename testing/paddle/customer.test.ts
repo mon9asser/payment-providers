@@ -154,4 +154,94 @@ describe("PaddleCustomer", () => {
             );
         });
     });
+
+
+        describe("businesses()", () => {
+        it("calls GET /customers/{id}/businesses with no query string by default", async () => {
+            await customers.businesses("ctm_123");
+            expect(request).toHaveBeenCalledWith("/customers/ctm_123/businesses");
+        });
+
+        it("serializes query params into the query string", async () => {
+            await customers.businesses("ctm_123", {
+                per_page: 5,
+                status: ["active", "archived"],
+                order_by: "id[ASC]",
+            });
+            expect(request).toHaveBeenCalledWith(
+                "/customers/ctm_123/businesses?per_page=5&status=active,archived&order_by=id[ASC]"
+            );
+        });
+
+        it("supports id, after and search params", async () => {
+            await customers.businesses("ctm_123", {
+                id: ["biz_1", "biz_2"],
+                after: "biz_2",
+                search: "acme",
+            });
+            expect(request).toHaveBeenCalledWith(
+                "/customers/ctm_123/businesses?id=biz_1,biz_2&after=biz_2&search=acme"
+            );
+        });
+    });
+
+    describe("createBusiness()", () => {
+        it("sends POST /customers/{id}/businesses with the payload", async () => {
+            const body = {
+                name: "Acme Inc",
+                company_number: "123456",
+                tax_identifier: "TAX-789",
+                contacts: [{ name: "Jane", email: "jane@acme.com" }],
+                custom_data: { tier: "gold" },
+            };
+            await customers.createBusiness("ctm_123", body);
+            expect(request).toHaveBeenCalledWith("/customers/ctm_123/businesses", "POST", body);
+        });
+
+        it("accepts only the required name", async () => {
+            await customers.createBusiness("ctm_123", { name: "Acme Inc" });
+            expect(request).toHaveBeenCalledWith("/customers/ctm_123/businesses", "POST", {
+                name: "Acme Inc",
+            });
+        });
+    });
+
+    describe("findBusinessById()", () => {
+        it("calls GET /customers/{id}/businesses/{business_id}", async () => {
+            await customers.findBusinessById("ctm_123", "biz_456");
+            expect(request).toHaveBeenCalledWith("/customers/ctm_123/businesses/biz_456");
+        });
+    });
+
+    describe("updateBusiness()", () => {
+        it("sends PATCH /customers/{id}/businesses/{business_id} with the payload", async () => {
+            const body = { name: "Acme Ltd", status: "archived" as const };
+            await customers.updateBusiness("ctm_123", "biz_456", body);
+            expect(request).toHaveBeenCalledWith(
+                "/customers/ctm_123/businesses/biz_456",
+                "PATCH",
+                body
+            );
+        });
+
+        it("allows nulling out optional fields", async () => {
+            const body = { company_number: null, tax_identifier: null, contacts: null };
+            await customers.updateBusiness("ctm_123", "biz_456", body);
+            expect(request).toHaveBeenCalledWith(
+                "/customers/ctm_123/businesses/biz_456",
+                "PATCH",
+                body
+            );
+        });
+
+        it("updates contacts", async () => {
+            const body = { contacts: [{ email: "billing@acme.com" }] };
+            await customers.updateBusiness("ctm_123", "biz_456", body);
+            expect(request).toHaveBeenCalledWith(
+                "/customers/ctm_123/businesses/biz_456",
+                "PATCH",
+                body
+            );
+        });
+    });
 });
