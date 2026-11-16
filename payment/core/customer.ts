@@ -81,7 +81,9 @@ interface CustomerDeletePaymentMethod {
     deletePaymentMethodById(customer_id:string, payment_method_id:string): Promise<ResponseType>;
 }
 
-
+interface CustomerPortalSession {
+    portalSession(customer_id: string, subscription_ids:string[]): Promise<ResponseType>;
+}
 
 export {
     CustomerRetrieve,
@@ -105,5 +107,7 @@ export {
 
     CustomerPaymentMethods,
     CustomerFindPaymentMethodById,
-    CustomerDeletePaymentMethod
+    CustomerDeletePaymentMethod,
+
+    CustomerPortalSession
 }

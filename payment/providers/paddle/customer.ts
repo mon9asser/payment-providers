@@ -15,7 +15,8 @@ import {
     CustomerBusinesses,
     CustomerCreateBusiness,
     CustomerFindBusinessById,
-    CustomerUpdateBusiness
+    CustomerUpdateBusiness,
+    CustomerPortalSession
 } from "./../../core/customer";
 
 import {ResponseType,RequestCache} from "./../../helper/helper";
@@ -129,7 +130,9 @@ export default class PaddleCustomer
     CustomerBusinesses,
     CustomerCreateBusiness,
     CustomerFindBusinessById,
-    CustomerUpdateBusiness
+    CustomerUpdateBusiness,
+
+    CustomerPortalSession
 {
     
     private adapter;
@@ -285,10 +288,17 @@ export default class PaddleCustomer
         
         return await this.adapter.request(api);
     }
-    
+
     async deletePaymentMethodById(customer_id:string, payment_method_id:string): Promise<ResponseType> {
          let api = `${this.uri}/${customer_id}/payment-methods/${payment_method_id}`;
         
         return await this.adapter.request(api, "DELETE");
+    }
+
+    async portalSession(customer_id: string, subscription_ids: string[] = []): Promise<ResponseType> {
+        let api = `${this.uri}/${customer_id}/portal-sessions`;
+        const body = subscription_ids.length ? { subscription_ids } : {};
+
+        return await this.adapter.request(api, "POST", body);
     }
 }
