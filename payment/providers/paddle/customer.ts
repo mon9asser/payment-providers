@@ -59,6 +59,14 @@ interface BusinessContactRequestBodyType {
     email: string;
 }
 
+interface CustomerPaymentMethodDataType {
+    after?: string;
+    per_page?: number;
+    address_id?: string[];
+    order_by?: 'id[ASC]' | 'id[DESC]';
+    supports_checkout?: boolean;
+}
+
 interface BusinessRequestBodyType {
     name: string;
     company_number?: string | null;
@@ -250,5 +258,37 @@ export default class PaddleCustomer
     async updateBusiness(customer_id:string, business_id:string, body: BusinessUpdateRequestBodyType): Promise<ResponseType> {
         let api = `${this.uri}/${customer_id}/businesses/${business_id}`;
         return await this.adapter.request(api, "PATCH", body);
+    }
+
+
+    async paymentMethods(customer_id:string, queryParam:CustomerPaymentMethodDataType = {}): Promise<ResponseType> {
+        let param = '';
+        const keys = Object.keys(queryParam);
+        ( keys as (keyof CustomerPaymentMethodDataType)[]).forEach((key, index) => {
+            param += `${key}=${queryParam[key]}`
+            if( index !=  (keys.length - 1) ) {
+                param +='&';
+            }
+        });
+
+        let api = `${this.uri}/${customer_id}/payment-methods`;
+        if( param != '') {
+            api = `${api}?${param}`;
+        }
+ 
+        return await this.adapter.request(api);
+    }
+
+    async findPaymentMethodById(customer_id:string, payment_method_id:string): Promise<ResponseType> {
+        let api = `${this.uri}/${customer_id}/payment-methods/${payment_method_id}`;
+      
+        
+        return await this.adapter.request(api);
+    }
+    
+    async deletePaymentMethodById(customer_id:string, payment_method_id:string): Promise<ResponseType> {
+         let api = `${this.uri}/${customer_id}/payment-methods/${payment_method_id}`;
+        
+        return await this.adapter.request(api, "DELETE");
     }
 }

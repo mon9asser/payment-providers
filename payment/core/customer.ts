@@ -69,6 +69,20 @@ interface CustomerUpdateBusiness {
 }
 
 
+interface CustomerPaymentMethods {
+    paymentMethods(customer_id:string, queryParam:{}): Promise<ResponseType>;
+}
+
+interface CustomerFindPaymentMethodById {
+    findPaymentMethodById(customer_id:string, payment_method_id:string): Promise<ResponseType>;
+}
+
+interface CustomerDeletePaymentMethod {
+    deletePaymentMethodById(customer_id:string, payment_method_id:string): Promise<ResponseType>;
+}
+
+
+
 export {
     CustomerRetrieve,
     CustomerCreate,
@@ -88,4 +102,8 @@ export {
     CustomerCreateBusiness,
     CustomerFindBusinessById,
     CustomerUpdateBusiness,
+
+    CustomerPaymentMethods,
+    CustomerFindPaymentMethodById,
+    CustomerDeletePaymentMethod
 }
