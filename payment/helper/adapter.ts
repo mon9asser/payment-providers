@@ -77,7 +77,7 @@ export default class Adapter {
         };
 
         const uri = `${this.endpoint}${api}`;
-        console.log(uri, body);
+      
         
         try { 
             const response = await fetch(uri, {

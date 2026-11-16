@@ -27,8 +27,11 @@ dotenv.config();
         }
     }); 
 
-    const all = await provider.customers.portalSession("ctm_01m7fwjk63t59b6ate5wfdvd1a", []);
+    const product = await provider.product.all({
+        status: ["active"]
+    });
     /*
+    pro_01m7jkng1sp5f1pv4appxb6kkz
     biz_01m7hkbhfwkn3fn4v0qz3e2xc7
     findAddressById("ctm_01m7fwjk63t59b6ate5wfdvd1a", "add_01m7g7he7ng8wzjmwc07sw2858")
     const create = await provider.customers.create({
@@ -39,7 +42,7 @@ dotenv.config();
         }
     });*/
 
-    console.log(all); 
+    console.log(product); 
     
     
 })();
