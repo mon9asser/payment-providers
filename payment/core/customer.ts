@@ -52,6 +52,23 @@ interface CustomerUpdateAddress {
 
 
 
+interface CustomerBusinesses {
+    businesses(customer_id:string, queryParam:{}): Promise<ResponseType>;
+}
+
+interface CustomerCreateBusiness {
+    createBusiness(customer_id:string, body: {}): Promise<ResponseType>;
+}
+
+interface CustomerFindBusinessById {
+    findBusinessById(customer_id:string, business_id:string): Promise<ResponseType>;
+}
+
+interface CustomerUpdateBusiness {
+    updateBusiness(customer_id:string, business_id:string, body: {}): Promise<ResponseType>;
+}
+
+
 export {
     CustomerRetrieve,
     CustomerCreate,
@@ -65,5 +82,10 @@ export {
     CustomerAddress,
     CustomerCreateAddress,
     CustomerFindAddressById,
-    CustomerUpdateAddress
+    CustomerUpdateAddress,
+
+    CustomerBusinesses,
+    CustomerCreateBusiness,
+    CustomerFindBusinessById,
+    CustomerUpdateBusiness,
 }
