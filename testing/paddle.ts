@@ -27,10 +27,13 @@ dotenv.config();
         }
     }); 
 
-    const product = await provider.product.all({
-        status: ["active"]
-    });
-    /*
+    const product = await provider.price.findById('pri_01m7qy05mv8fe1ckqhd33s9gq2');
+
+   
+    /* 
+    id: 'pri_01m7qy05mv8fe1ckqhd33s9gq2',
+    product_id: 'pro_01m7jkng1sp5f1pv4appxb6kkz',
+
     pro_01m7jkng1sp5f1pv4appxb6kkz
     biz_01m7hkbhfwkn3fn4v0qz3e2xc7
     findAddressById("ctm_01m7fwjk63t59b6ate5wfdvd1a", "add_01m7g7he7ng8wzjmwc07sw2858")
@@ -42,7 +45,7 @@ dotenv.config();
         }
     });*/
 
-    console.log(product); 
+    console.log(product.data); 
     
     
 })();
