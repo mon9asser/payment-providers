@@ -27,10 +27,13 @@ dotenv.config();
         }
     }); 
 
-    const discounts = await provider.discount.findById("dsc_01m7tee93n625xn0f9epmpb8s4")
+    const discounts = await provider.discountGroups.update("dsg_01m7tgtf5tjegtpr2ad75sda5z", {
+        name: "Updated my discount group"
+    })
 
    
     /* 
+    dsg_01m7tgtf5tjegtpr2ad75sda5z
     dsc_01m7tee93n625xn0f9epmpb8s4
     id: 'pri_01m7qy05mv8fe1ckqhd33s9gq2',
     product_id: 'pro_01m7jkng1sp5f1pv4appxb6kkz',
