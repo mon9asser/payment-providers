@@ -3,6 +3,7 @@ import PaddleAccount from "./account";
 import PaddleCustomer from "./customer";
 import PaddleProduct from "./product";
 import PaddlePrice from "./price";
+import PaddleDiscount from "./discount";
  
 
 export default class Paddle {
@@ -15,6 +16,7 @@ export default class Paddle {
     public account: PaddleAccount;
     public product: PaddleProduct;
     public price: PaddlePrice;
+    public discount: PaddleDiscount;
 
     constructor( Resolver: Adapter ) { 
         
@@ -23,7 +25,7 @@ export default class Paddle {
         this.account = new PaddleAccount(this.adapter);
         this.product = new PaddleProduct(this.adapter);
         this.price = new PaddlePrice(this.adapter);
-        
+        this.discount = new PaddleDiscount(this.adapter);
     }
  
 

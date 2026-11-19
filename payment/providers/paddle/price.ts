@@ -6,19 +6,12 @@ import {
 } from "../../core/price";
 
 import Adapter from "../../helper/adapter";
-import {ResponseType} from "./../../helper/helper";
+import {ResponseType, PaddleCurrencyCode} from "./../../helper/helper";
 
 
 type BillingInterval = "day" | "week" | "month" | "year";
 
-type CurrencyCode =
-  | "USD" | "EUR" | "GBP" | "JPY" | "AUD"
-  | "CAD" | "CHF" | "HKD" | "SGD" | "SEK"
-  | "ARS" | "BRL" | "CLP" | "CNY" | "COP"
-  | "CZK" | "DKK" | "HUF" | "ILS" | "INR"
-  | "KRW" | "MXN" | "NOK" | "NZD" | "PEN"
-  | "PLN" | "RUB" | "THB" | "TRY" | "TWD"
-  | "UAH" | "VND" | "ZAR";
+
 
 type PriceType = "custom" | "standard";
 
@@ -42,7 +35,7 @@ interface TrialPeriod {
 
 interface UnitPrice {
   amount: string;
-  currency_code: CurrencyCode;
+  currency_code: PaddleCurrencyCode;
 }
 
 interface UnitPriceOverride {

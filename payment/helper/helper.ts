@@ -7,6 +7,14 @@ interface PaymentProviderConfig {
     };
 }
 
+type PaddleCurrencyCode =
+  | "USD" | "EUR" | "GBP" | "JPY" | "AUD"
+  | "CAD" | "CHF" | "HKD" | "SGD" | "SEK"
+  | "ARS" | "BRL" | "CLP" | "CNY" | "COP"
+  | "CZK" | "DKK" | "HUF" | "ILS" | "INR"
+  | "KRW" | "MXN" | "NOK" | "NZD" | "PEN"
+  | "PLN" | "RUB" | "THB" | "TRY" | "TWD"
+  | "UAH" | "VND" | "ZAR";
 
 interface ResponseType<T = unknown> {
     isError: boolean;
@@ -25,5 +33,6 @@ type RequestCache =
 export {
     PaymentProviderConfig, 
     ResponseType,
-    RequestCache
+    RequestCache,
+    PaddleCurrencyCode
 };

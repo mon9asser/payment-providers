@@ -27,10 +27,11 @@ dotenv.config();
         }
     }); 
 
-    const product = await provider.price.findById('pri_01m7qy05mv8fe1ckqhd33s9gq2');
+    const discounts = await provider.discount.findById("dsc_01m7tee93n625xn0f9epmpb8s4")
 
    
     /* 
+    dsc_01m7tee93n625xn0f9epmpb8s4
     id: 'pri_01m7qy05mv8fe1ckqhd33s9gq2',
     product_id: 'pro_01m7jkng1sp5f1pv4appxb6kkz',
 
@@ -45,7 +46,7 @@ dotenv.config();
         }
     });*/
 
-    console.log(product.data); 
+    console.log(discounts); 
     
     
 })();
