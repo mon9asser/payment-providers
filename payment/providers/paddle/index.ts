@@ -4,7 +4,9 @@ import PaddleCustomer from "./customer";
 import PaddleProduct from "./product";
 import PaddlePrice from "./price";
 import PaddleDiscount from "./discount";
- 
+import PaddleDiscountGroups from "./discount.groups";
+
+
 
 export default class Paddle {
     
@@ -17,6 +19,7 @@ export default class Paddle {
     public product: PaddleProduct;
     public price: PaddlePrice;
     public discount: PaddleDiscount;
+    public discountGroups: PaddleDiscountGroups;
 
     constructor( Resolver: Adapter ) { 
         
@@ -26,6 +29,8 @@ export default class Paddle {
         this.product = new PaddleProduct(this.adapter);
         this.price = new PaddlePrice(this.adapter);
         this.discount = new PaddleDiscount(this.adapter);
+        this.discountGroups= new PaddleDiscountGroups(this.adapter);
+        
     }
  
 
