@@ -170,7 +170,7 @@ export default class PaddlePrice
     }
 
     async update(price_id:string, objData: UpdatePriceDataType): Promise<ResponseType>{
-         let api = `${this.uri}/${price_id}`;
+        let api = `${this.uri}/${price_id}`;
         return await this.adapter.request(api, "PATCH", objData);
     }
 
