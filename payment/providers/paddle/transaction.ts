@@ -87,7 +87,7 @@ type TaxCategory =
     | "standard"
     | "training-services"
     | "website-hosting";
-export type BillingInterval = "day" | "week" | "month" | "year";
+type BillingInterval = "day" | "week" | "month" | "year";
 type TaxMode = "account_setting" | "external" | "internal" | "location";
 interface TransactionListParams {
     include?: TransactionInclude[];
@@ -123,7 +123,7 @@ interface BillingDetailsType {
   [key: string]: unknown;
 }
 
-export type DiscountType =
+ type DiscountType =
   | "flat"
   | "flat_per_seat"
   | "percentage";
@@ -146,7 +146,7 @@ interface BillingPeriodType {
   starts_at: string;
   ends_at: string;
 }
-export interface ProductType {
+ interface ProductType {
   name: string;
   description?: string | null;
   tax_category: TaxCategory;
@@ -178,7 +178,7 @@ interface BillingIntervalType {
   frequency: number;
 }
 
-export interface PriceType {
+ interface PriceType {
   description: string;
   name?: string | null;
   billing_cycle?: BillingIntervalType | null;
@@ -351,14 +351,14 @@ interface ReviseAddressType {
     region: string;
 }
 
-export interface ReviseTransactionType {
+interface ReviseTransactionType {
     customer?: ReviseCustomerType;
     business?: ReviseBusinessType;
     address?: ReviseAddressType;
 }
 
 
-class PaddleTransaction 
+export default class PaddleTransaction 
     implements 
             TransactionRetrieve,
             TransactionCreate,
