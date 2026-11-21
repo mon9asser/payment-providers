@@ -2,9 +2,16 @@ import Adapter from "../../helper/adapter";
 import {ResponseType, PaddleCurrencyCode, PaddleCountryCode} from "../../helper/helper";
 import {
     SubscriptionRetrieve,
-    SubscriptionUpdatePaymentMethodTransaction,
+    SubscriptionRetrieveById,
     SubscriptionUpdate,
-    SubscriptionRetrieveById
+    SubscriptionUpdatePaymentMethodTransaction,
+    SubscriptionActivate,
+    SubscriptionCancel,
+    SubscriptionCreateOneTimeCharge,
+    SubscriptionPause,
+    SubscriptionResume,
+    SubscriptionPreviewUpdate,
+    SubscriptionPreviewOneTimeCharge
 } from "./../../core/subscription";
 
 
@@ -324,9 +331,16 @@ type ChargeProduct = {
 export default class PaddleSubscription 
     implements 
         SubscriptionRetrieve,
-        SubscriptionUpdatePaymentMethodTransaction,
+        SubscriptionRetrieveById,
         SubscriptionUpdate,
-        SubscriptionRetrieveById
+        SubscriptionUpdatePaymentMethodTransaction,
+        SubscriptionActivate,
+        SubscriptionCancel,
+        SubscriptionCreateOneTimeCharge,
+        SubscriptionPause,
+        SubscriptionResume,
+        SubscriptionPreviewUpdate,
+        SubscriptionPreviewOneTimeCharge
 {
 
     private adapter;
