@@ -6,6 +6,7 @@ import PaddlePrice from "./price";
 import PaddleDiscount from "./discount";
 import PaddleDiscountGroups from "./discount.groups";
 import PaddleTransaction from "./transaction";
+import PaddleSubscription from "./subscription";
  
 
 
@@ -23,6 +24,7 @@ export default class Paddle {
     public discount: PaddleDiscount;
     public discountGroups: PaddleDiscountGroups;
     public transaction: PaddleTransaction;
+    public subscription: PaddleSubscription;
 
     constructor( Resolver: Adapter ) { 
         
@@ -34,6 +36,7 @@ export default class Paddle {
         this.discount = new PaddleDiscount(this.adapter);
         this.discountGroups= new PaddleDiscountGroups(this.adapter);
         this.transaction = new PaddleTransaction(this.adapter);
+        this.subscription = new PaddleSubscription(this.adapter);
     }
  
 
