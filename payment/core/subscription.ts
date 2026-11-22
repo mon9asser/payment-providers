@@ -34,6 +34,10 @@ interface SubscriptionPreviewOneTimeCharge {
     previewOneTimeCharge(subscription_id: string, reqBody: {}): Promise<ResponseType>;
 }
 
+interface SubscriptionHistory {
+    history(subscription_id:string, queryParam: {}): Promise<ResponseType>;
+}
+
 export {
     SubscriptionRetrieve,
     SubscriptionRetrieveById,
@@ -45,5 +49,6 @@ export {
     SubscriptionPause,
     SubscriptionResume,
     SubscriptionPreviewUpdate,
-    SubscriptionPreviewOneTimeCharge
+    SubscriptionPreviewOneTimeCharge,
+    SubscriptionHistory
 }

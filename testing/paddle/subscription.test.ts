@@ -249,4 +249,49 @@ describe("PaddleSubscription", () => {
             ).rejects.toThrow("boom");
         });
     });
+
+        describe("history()", () => {
+        it("calls GET /subscriptions/{id}/history with no query string by default", async () => {
+            await subscriptions.history("sub_123");
+
+            expect(request).toHaveBeenCalledWith(
+                "/subscriptions/sub_123/history"
+            );
+        });
+
+        it("serializes array filters into the query string", async () => {
+            await subscriptions.history("sub_123", {
+                action: ["subscription_paused", "subscription_resumed"],
+                source: ["api", "dashboard"],
+                actor_type: ["user", "system"],
+                reason: ["customer_request"],
+            });
+
+            expect(request).toHaveBeenCalledWith(
+                "/subscriptions/sub_123/history?action=subscription_paused,subscription_resumed&source=api,dashboard&actor_type=user,system&reason=customer_request"
+            );
+        });
+
+        it("serializes pagination and ordering options", async () => {
+            await subscriptions.history("sub_123", {
+                after: "sbhist_123",
+                per_page: 25,
+                order_by: "id[DESC]",
+            });
+
+            expect(request).toHaveBeenCalledWith(
+                "/subscriptions/sub_123/history?after=sbhist_123&per_page=25&order_by=id[DESC]"
+            );
+        });
+
+        it("serializes actor_id filters", async () => {
+            await subscriptions.history("sub_123", {
+                actor_id: ["usr_123", "usr_456"],
+            });
+
+            expect(request).toHaveBeenCalledWith(
+                "/subscriptions/sub_123/history?actor_id=usr_123,usr_456"
+            );
+        });
+    });
 });

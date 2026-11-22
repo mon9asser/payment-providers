@@ -11,7 +11,8 @@ import {
     SubscriptionPause,
     SubscriptionResume,
     SubscriptionPreviewUpdate,
-    SubscriptionPreviewOneTimeCharge
+    SubscriptionPreviewOneTimeCharge,
+    SubscriptionHistory
 } from "./../../core/subscription";
 
 
@@ -328,6 +329,89 @@ type ChargeProduct = {
 };
 
 
+
+export type SubscriptionHistoryAction =
+    | "subscription_activated"
+    | "subscription_address_updated"
+    | "subscription_billing_cycle_updated"
+    | "subscription_billing_date_updated"
+    | "subscription_billing_details_updated"
+    | "subscription_business_added"
+    | "subscription_business_removed"
+    | "subscription_business_updated"
+    | "subscription_canceled"
+    | "subscription_collection_mode_updated"
+    | "subscription_consent_requirement_granted"
+    | "subscription_created"
+    | "subscription_currency_updated"
+    | "subscription_custom_data_updated"
+    | "subscription_customer_updated"
+    | "subscription_discount_added"
+    | "subscription_discount_expired"
+    | "subscription_discount_removed"
+    | "subscription_item_added"
+    | "subscription_item_quantity_updated"
+    | "subscription_item_removed"
+    | "subscription_one_off_charge_applied"
+    | "subscription_past_due"
+    | "subscription_paused"
+    | "subscription_payment_attempted"
+    | "subscription_payment_method_added"
+    | "subscription_payment_method_removed"
+    | "subscription_payment_method_updated"
+    | "subscription_renewed"
+    | "subscription_resumed"
+    | "subscription_scheduled_change_added"
+    | "subscription_scheduled_change_removed"
+    | "subscription_scheduled_change_updated";
+
+export type SubscriptionHistorySource =
+    | "system"
+    | "api"
+    | "dashboard"
+    | "customer_portal"
+    | "support_bot"
+    | "retain"
+    | "checkout"
+    | "external_provider"
+    | "paddle_classic"
+    | "unknown";
+
+export type SubscriptionHistoryActorType =
+    | "customer"
+    | "user"
+    | "api_key"
+    | "paddle_staff"
+    | "publisher"
+    | "system";
+
+export type SubscriptionHistoryReason =
+    | "cardless_trial_ended"
+    | "import_issue"
+    | "missing_consent"
+    | "seller_request"
+    | "customer_request"
+    | "chargeback"
+    | "eu_withdrawal";
+
+export type DateTimeFilter = {
+    LTE?: string;
+    GTE?: string;
+};
+
+export type SubscriptionHistoryQuery = {
+    action?: SubscriptionHistoryAction[];
+    source?: SubscriptionHistorySource[];
+    actor_type?: SubscriptionHistoryActorType[];
+    actor_id?: string[];
+    reason?: SubscriptionHistoryReason[];
+    occurred_at?: DateTimeFilter;
+    after?: string;
+    per_page?: number;
+    order_by?: "id[ASC]" | "id[DESC]";
+};
+
+
 export default class PaddleSubscription 
     implements 
         SubscriptionRetrieve,
@@ -340,7 +424,8 @@ export default class PaddleSubscription
         SubscriptionPause,
         SubscriptionResume,
         SubscriptionPreviewUpdate,
-        SubscriptionPreviewOneTimeCharge
+        SubscriptionPreviewOneTimeCharge,
+        SubscriptionHistory
 {
 
     private adapter;
@@ -350,6 +435,7 @@ export default class PaddleSubscription
         this.adapter = adapter;
     }
 
+   
     async all(queryParam: ListSubscriptionsParams = {}):Promise<ResponseType> {
 
         let param = '';
@@ -432,4 +518,24 @@ export default class PaddleSubscription
         return await this.adapter.request(api, "POST", reqBody);
     }
 
+    async history(subscription_id:string, queryParam: SubscriptionHistoryQuery = {}):Promise<ResponseType> {
+      
+
+      let param = '';
+      const keys = Object.keys(queryParam);
+      ( keys as (keyof SubscriptionHistoryQuery)[]).forEach((key, index) => {
+          param += `${key}=${queryParam[key]}`
+          if( index !=  (keys.length - 1) ) {
+              param +='&';
+          }
+      });
+
+      let api = `${this.uri}/${subscription_id}/history`;
+      if( param != '') {
+          api = `${api}?${param}`;
+      }
+
+      return await this.adapter.request(api);
+
+    }
 }
