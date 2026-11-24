@@ -7,6 +7,13 @@ import PaddleDiscount from "./discount";
 import PaddleDiscountGroups from "./discount.groups";
 import PaddleTransaction from "./transaction";
 import PaddleSubscription from "./subscription";
+
+import PaddleAdjustment from "./adjustment";
+
+import PaddlePreviewPricing from "./pricing.preview";
+import PaddleEvent from "./event";
+import PaddleEventTypes from "./event.types";
+import PaddleNotifications from "./notifications";
  
 
 
@@ -25,6 +32,11 @@ export default class Paddle {
     public discountGroups: PaddleDiscountGroups;
     public transaction: PaddleTransaction;
     public subscription: PaddleSubscription;
+    public adjustment: PaddleAdjustment;
+    public pricingPreview: PaddlePreviewPricing;
+    public event: PaddleEvent;
+    public eventTypes: PaddleEventTypes;
+    public notification: PaddleNotifications;
 
     constructor( Resolver: Adapter ) { 
         
@@ -37,6 +49,12 @@ export default class Paddle {
         this.discountGroups= new PaddleDiscountGroups(this.adapter);
         this.transaction = new PaddleTransaction(this.adapter);
         this.subscription = new PaddleSubscription(this.adapter);
+
+        this.adjustment = new PaddleAdjustment(this.adapter);
+        this.pricingPreview  = new PaddlePreviewPricing(this.adapter);
+        this.event = new PaddleEvent(this.adapter);
+        this.eventTypes = new PaddleEventTypes(this.adapter);
+        this.notification = new PaddleNotifications(this.adapter);
     }
  
 
